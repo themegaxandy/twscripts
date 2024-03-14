@@ -19,6 +19,8 @@
 
     function playSound() {
         const audio = new Audio('https://freesound.org/data/previews/235/235911_2391840-lq.mp3');
+
+        // Gets the player volume divided by 2 to be applied to the notification sound
         audio.volume = localStorage.getItem('volume') / 2;
 
         // Listen for the "ended" event and remove the reference
