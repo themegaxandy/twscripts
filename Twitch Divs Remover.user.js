@@ -42,7 +42,7 @@
         removeDivs();
     });
 
-    // Wait 10 seconds to remove the divs, as not all elements were actually loaded after the page loaded status.
+    // Wait 10 seconds to remove the divs, as not all elements were actually loaded after the page loaded status
     setTimeout(function() {
         removeDivs()
     }, 10000);
