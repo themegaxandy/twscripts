@@ -1,5 +1,5 @@
 # Twitch Chat Sound
-Makes an audible warning every time there is a new message on Twitch. The sound warning volume is linked to the player volume.
+Makes an notification sound every time there is a new message on Twitch. The notification sound volume is linked to the player volume.
 
 # Twitch Divs Remover
 Remove some annoying divs that take up space in the chat field, to get more space in theater mode. The removed buttons can be restored by clicking on settings > open chat in popup.
