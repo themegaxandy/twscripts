@@ -6,6 +6,7 @@
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
+// @exclude      *://www.twitch.tv/videos/*
 // @grant        none
 // @run-at       document-end
 // ==/UserScript==
@@ -80,6 +81,8 @@
     // Live Speed Control
     // Ratechange events are captured and stopped.
     // It is necessary to replace Twitch's stream speed control with this script.
+    // This does cause a problem with changing video speeds when watching vods, though. A bug to be resolved. 
+    // Refreshing the vod page works around the problem because of the specified @exclude userscript header.
     document.dispatchEvent(new Event('ratechange'));
     document.addEventListener('ratechange', function (e) {
         e.stopImmediatePropagation();
