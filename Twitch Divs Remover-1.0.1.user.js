@@ -2,7 +2,7 @@
 // @name         Twitch Divs Remover
 // @author       themegaxandy
 // @description  Twitch Divs Remover
-// @version      1.0.0
+// @version      1.0.1
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Divs%20Remover-1.0.0.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Divs%20Remover-1.0.0.user.js
 // @match        *://www.twitch.tv/*
@@ -13,7 +13,7 @@
 (function () {
     'use strict';
 
-    // Verifica se MutationObserver está disponível
+    // Checks if MutationObserver is available
     let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
     if (MutationObserver) console.log('[Twitch Divs Remover] Observer iniciado!');
 
@@ -23,7 +23,7 @@
         "#live-page-chat > div > div > .chat-shell__expanded > div > div > div[class*='stream-chat-header']"
     ];
 
-    // Função para remover as divs especificadas
+    // Function to remove the specified divs
     function removeDivs() {
         selectors.forEach((selector, index) => {
             if (document.querySelector(selector)) {
@@ -33,7 +33,7 @@
         });
     }
 
-    // Configura MutationObserver para a primeira execução
+    // Configures MutationObserver for the first run
     let observer = new MutationObserver(() => {
         console.log('[Twitch Divs Remover] Mutação detectada!');
         removeDivs();
