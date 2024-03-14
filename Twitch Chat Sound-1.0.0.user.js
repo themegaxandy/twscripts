@@ -3,6 +3,8 @@
 // @author       themegaxandy
 // @description  Make a sound when there is a new chat message
 // @version      1.0.0
+// @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Chat%20Sound-1.0.0.user.js
+// @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Chat%20Sound-1.0.0.user.js
 // @match        *://www.twitch.tv/*
 // @grant        none
 // @run-at       document-end
