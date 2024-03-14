@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.0.0
+// @version      1.0.1
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed-1.0.0.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed-1.0.0.user.js
 // @match        *://www.twitch.tv/*
@@ -15,83 +15,83 @@
 
     // Latency Overlay
     setInterval(function() {
-        // console.log('[Latency Overlay] Verificando overlay...')
+        // console.log('[Latency Overlay] Checking overlay...')
 
-        // Verifique se o elemento <p> ainda está no grupo de controle à direita
+        // Check if the <p> element is still in the right control group
         let pBuffer = document.querySelector(".video-ref .player-controls__right-control-group > p[aria-label='Tamanho do buffer']");
         let isChannelLive = document.querySelector(".top-bar--pointer-enabled > div > div.tw-channel-status-text-indicator");
 
-        // Se o pBuffer não estiver presente e o canal estiver em live, chame a função moveFramerate, caso contrário apague pBuffer se existir.
+        // If pBuffer is not present and the channel is live, call the moveFramerate function, otherwise delete pBuffer if it exists.
         !pBuffer && isChannelLive ? moveFramerate() : (pBuffer && !isChannelLive ? document.querySelector('.player-controls__right-control-group > p[aria-label="Tamanho do buffer"]').remove(): null);
     }, 10000);
 
-    // Define uma função que move a taxa de quadros para o grupo de controle à direita
+    // Sets a function that moves the frame rate to the right control group
     function moveFramerate() {
-        // Clique no botão de configurações
+        // Click on the settings button
         document.querySelector("button[data-a-target='player-settings-button']").click();
 
-        // Espere 1 segundo antes de continuar
+        // Wait 1 second before continuing
         setTimeout(function() {
-            // Clique no item de menu 'Advanced'
+            // Click on the 'Advanced' menu item
             document.querySelector("button[data-a-target='player-settings-menu-item-advanced']").click();
 
-            // Espere 1 segundo antes de continuar
+            // Wait 1 second before continuing
             setTimeout(function() {
                 // Clique no primeiro elemento no submenu 'Advanced Video Stats'
                 document.querySelector("div[data-a-target='player-settings-submenu-advanced-video-stats'] input").click();
 
-                // Espere 1 segundo antes de continuar
+                // Wait 1 second before continuing
                 setTimeout(function() {
-                    // Verifique se o elemento 'player-overlay-video-stats' está presente após o primeiro clique
+                    // Check if 'player-overlay-video-stats' element is present after first click
                     var overlayStats = document.querySelector("div[data-a-target='player-overlay-video-stats']");
 
                     if (!overlayStats) {
-                        // Remova elementos do grupo de controle à direita
+                        // Remove elements from the right control group
                         var elements = document.querySelectorAll(".player-controls__right-control-group > p");
 
                         elements.forEach(function(element) {
                             element.parentNode.removeChild(element);
                         });
 
-                        // Se o elemento 'player-overlay-video-stats' não estiver presente após o primeiro clique, clique novamente no primeiro elemento
+                        // If the 'player-overlay-video-stats' element is not present after the first click, click the first element again
                         document.querySelector("div[data-a-target='player-settings-submenu-advanced-video-stats'] input").click();
                     }
 
-                    // Espere 1 segundo antes de continuar
+                    // Wait 1 second before continuing
                     setTimeout(function() {
-                        // Esconda o elemento 'player-overlay-video-stats' se estiver presente
+                        // Hide the 'player-overlay-video-stats' element if present
                         var overlayStats = document.querySelector("div[data-a-target='player-overlay-video-stats']");
 
                         if (overlayStats) {
                             overlayStats.style.display = "none";
                         }
 
-                        // Mova o elemento para o grupo de controle à direita
+                        // Move the element to the right control group
                         document.querySelector(".player-controls__right-control-group").prepend(document.querySelector("div[data-a-target='player-overlay-video-stats'] > table > tbody > tr:nth-child(5) > td:nth-child(2) > p"));
 
-                        // Clique novamente no botão de configurações
+                        // Click the settings button again
                         document.querySelector("button[data-a-target='player-settings-button']").click();
-                    }, 50); // Espere 50ms após o segundo clique
-                }, 50); // Espere 50ms após o primeiro clique
-            }, 50); // Espere 50ms após o terceiro clique
-        }, 50); // Espere 50ms antes do primeiro clique
+                    }, 50); // Wait 50ms after the second click
+                }, 50); // Wait 50ms after the first click
+            }, 50); // Wait 50ms after the second click
+        }, 50); // Wait 50ms before the first click
     }
 
     // Live Speed Control
-    // Eventos de ratechange são capturados e interrompidos
+    // Ratechange events are captured and stopped
     document.dispatchEvent(new Event('ratechange'));
     document.addEventListener('ratechange', function (e) {
         e.stopImmediatePropagation();
     }, true, true);
 
-    // Função para verificar e ajustar a velocidade do vídeo
+    // Function to check and adjust video speed
     function checkAndAdjustSpeed() {
         const bufferElement = document.querySelector('.player-controls__right-control-group > p[aria-roledescription="video player stat"]');
         if (bufferElement) {
             const seconds = (bufferElement.textContent.match(/(\d+\.\d+)\s*s/) ? parseFloat(bufferElement.textContent.match(/(\d+\.\d+)\s*s/)[1]) : 0);
             const videoElement = document.querySelector('video');
 
-            // Variável de configuração para habilitar/desabilitar o bloco if de 1 segundo
+            // Configuration variable to enable/disable the 1 second if block
             let enableBlock1Second = false;
 
             // console.log(`[Twitch Live Speed] videoElement.playbackRate`, videoElement.playbackRate, 'seconds', seconds);
@@ -108,12 +108,12 @@
 
             if (videoElement.playbackRate !== targetPlaybackRate) {
                 videoElement.playbackRate = targetPlaybackRate;
-                console.log('[Twitch Live Speed] Velocidade ajustada para ' + targetPlaybackRate);
+                console.log('[Twitch Live Speed] Speed adjusted to ' + targetPlaybackRate);
             }
         }
     }
 
-    // Verifica e ajusta a velocidade a cada meio segundo
+    // Checks and adjusts speed every half second
     setInterval(function() {
         checkAndAdjustSpeed();
     }, 500);
