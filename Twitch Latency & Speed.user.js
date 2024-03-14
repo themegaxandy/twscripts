@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.0.1
+// @version      1.0.2
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -79,6 +79,7 @@
 
     // Live Speed Control
     // Ratechange events are captured and stopped
+    // It is necessary to replace Twitch's stream speed control with this script.
     document.dispatchEvent(new Event('ratechange'));
     document.addEventListener('ratechange', function (e) {
         e.stopImmediatePropagation();
@@ -192,7 +193,9 @@
         }, 3000);
     }
 
+    // Over time, the displayed buffer is larger than it actually is, causing lag in the stream.
+    // Pausing and unpausing the stream works around the problem, done in the following code:
     setInterval(function() {
         reloadTwitchPlayer(false, true);
-    }, 600000);
+    }, 600000); // 600000ms is 10 minutes.
 })();
