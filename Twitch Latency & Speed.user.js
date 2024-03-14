@@ -21,7 +21,7 @@
         let pBuffer = document.querySelector(".video-ref .player-controls__right-control-group > p[aria-label='Tamanho do buffer']");
         let isChannelLive = document.querySelector(".top-bar--pointer-enabled > div > div.tw-channel-status-text-indicator");
 
-        // If pBuffer is not present and the channel is live, call the moveFramerate function, otherwise delete pBuffer if it exists.
+        // If pBuffer is not present and the channel is live, call the moveFramerate function, otherwise delete pBuffer if it exists
         !pBuffer && isChannelLive ? moveFramerate() : (pBuffer && !isChannelLive ? document.querySelector('.player-controls__right-control-group > p[aria-label="Tamanho do buffer"]').remove(): null);
     }, 10000);
 
@@ -78,7 +78,7 @@
     }
 
     // Live Speed Control
-    // Ratechange events are captured and stopped
+    // Ratechange events are captured and stopped.
     // It is necessary to replace Twitch's stream speed control with this script.
     document.dispatchEvent(new Event('ratechange'));
     document.addEventListener('ratechange', function (e) {
