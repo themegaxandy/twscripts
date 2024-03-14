@@ -2,7 +2,7 @@
 // @name         Twitch Chat Sound
 // @author       themegaxandy
 // @description  Make a sound when there is a new chat message
-// @version      1.0.1
+// @version      1.0.2
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Chat%20Sound.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Chat%20Sound.user.js
 // @match        *://www.twitch.tv/*
@@ -36,6 +36,9 @@
         playSound();
     });
 
+    // Attach the observer every 30 seconds.
+    // For cases where the url is changed, and the observed element is deleted, causing the observer to be detached.
+    // There are no problems noted in reattaching an already attached observer.
     setInterval(function() {
         observer.observe(document.querySelector(".chat-scrollable-area__message-container"), { childList: true, subtree: true, characterData: true });
         console.log('[Twitch Chat Sound] Observing .chat-scrollable-area__message-container');
