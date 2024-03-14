@@ -194,5 +194,5 @@
 
     setInterval(function() {
         reloadTwitchPlayer(false, true);
-    }, 300000);
+    }, 600000);
 })();
