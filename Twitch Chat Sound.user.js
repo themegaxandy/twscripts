@@ -2,7 +2,7 @@
 // @name         Twitch Chat Sound
 // @author       themegaxandy
 // @description  Make a sound when there is a new chat message
-// @version      1.0.2
+// @version      1.0.3
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Chat%20Sound.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Chat%20Sound.user.js
 // @match        *://www.twitch.tv/*
@@ -20,8 +20,8 @@
     function playSound() {
         const audio = new Audio('https://freesound.org/data/previews/235/235911_2391840-lq.mp3');
 
-        // Gets the player volume divided by 2 to be applied to the notification sound
-        audio.volume = localStorage.getItem('volume') / 2;
+        // Gets 20% of the player volume to be applied to the notification sound
+        audio.volume = (20 * localStorage.getItem('volume')) / 100;
 
         // Listen for the "ended" event and remove the reference
         audio.addEventListener('ended', () => {
