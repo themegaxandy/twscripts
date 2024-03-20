@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.0.2
+// @version      1.0.3
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -15,7 +15,7 @@
     'use strict';
 
     // Latency Overlay
-    setInterval(function() {
+    function checkOverlay() {
         // console.log('[Latency Overlay] Checking overlay...')
 
         // Check if the <p> element is still in the right control group
@@ -24,7 +24,13 @@
 
         // If pBuffer is not present and the channel is live, call the moveFramerate function, otherwise delete pBuffer if it exists
         !pBuffer && isChannelLive ? moveFramerate() : (pBuffer && !isChannelLive ? document.querySelector('.player-controls__right-control-group > p[aria-label="Tamanho do buffer"]').remove(): null);
-    }, 10000);
+    }
+
+    // Run for the first time after 10 seconds after the page loads
+    setTimeout(checkOverlay, 10000);
+
+    // Run every one and a half minutes, in case the page is changed
+    setInterval(checkOverlay, 90000);
 
     // Sets a function that moves the frame rate to the right control group
     function moveFramerate() {
