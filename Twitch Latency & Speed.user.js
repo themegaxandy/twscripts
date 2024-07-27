@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.0.3
+// @version      1.0.4
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -94,7 +94,27 @@
         e.stopImmediatePropagation();
     }, true, true);
 
-    // Function to check and adjust video speed
+    let intervalId500ms;
+
+    function startInterval() {
+        intervalId500ms = setInterval(checkCondition, 500);
+    }
+
+    function checkCondition() {
+        // Replace this with your actual condition
+        let result = checkAndAdjustSpeed();
+
+        if (result === 1) {
+            clearInterval(intervalId500ms);
+            console.log('[Twitch Live Speed] Latency adjusted, waiting for 60 seconds...');
+
+            setTimeout(() => {
+                console.log('[Twitch Live Speed] 60 seconds passed, checking latency...');
+                startInterval();
+            }, 60000); // 60 seconds
+        }
+    }
+
     function checkAndAdjustSpeed() {
         const bufferElement = document.querySelector('.player-controls__right-control-group > p[aria-roledescription="video player stat"]');
         if (bufferElement) {
@@ -104,7 +124,6 @@
             // Configuration variable to enable/disable the 1 second if block
             let enableBlock1Second = false;
 
-            // console.log(`[Twitch Live Speed] videoElement.playbackRate`, videoElement.playbackRate, 'seconds', seconds);
             let targetPlaybackRate;
             if (seconds >= 3) {
                 targetPlaybackRate = 2.0;
@@ -120,13 +139,13 @@
                 videoElement.playbackRate = targetPlaybackRate;
                 console.log('[Twitch Live Speed] Speed adjusted to ' + targetPlaybackRate);
             }
+
+            return targetPlaybackRate;
         }
     }
 
-    // Checks and adjusts speed every half second
-    setInterval(function() {
-        checkAndAdjustSpeed();
-    }, 500);
+    // Start the first interval
+    startInterval();
 
     function reloadTwitchPlayer(isSeek, isPausePlay) {
         // Taken from ttv-tools / ffz
@@ -206,5 +225,5 @@
     // Pausing and unpausing the stream works around the problem, done in the following code:
     setInterval(function() {
         reloadTwitchPlayer(false, true);
-    }, 600000); // 600000ms is 10 minutes.
+    }, 300000); // 300000ms is 5 minutes.
 })();
