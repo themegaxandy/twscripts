@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.0.4
+// @version      1.0.5
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -147,83 +147,16 @@
     // Start the first interval
     startInterval();
 
-    function reloadTwitchPlayer(isSeek, isPausePlay) {
-        // Taken from ttv-tools / ffz
-        // https://github.com/Nerixyz/ttv-tools/blob/master/src/context/twitch-player.ts
-        // https://github.com/FrankerFaceZ/FrankerFaceZ/blob/master/src/sites/twitch-twilight/modules/player.jsx
-        function findReactNode(root, constraint) {
-            if (root.stateNode && constraint(root.stateNode)) {
-                return root.stateNode;
-            }
-            let node = root.child;
-            while (node) {
-                const result = findReactNode(node, constraint);
-                if (result) {
-                    return result;
-                }
-                node = node.sibling;
-            }
-            return null;
-        }
-        var reactRootNode = null;
-        var rootNode = document.querySelector('#root');
-        if (rootNode && rootNode._reactRootContainer && rootNode._reactRootContainer._internalRoot && rootNode._reactRootContainer._internalRoot.current) {
-            reactRootNode = rootNode._reactRootContainer._internalRoot.current;
-        }
-        if (!reactRootNode) {
-            console.log('Could not find react root');
-            return;
-        }
-        var player = findReactNode(reactRootNode, node => node.setPlayerActive && node.props && node.props.mediaPlayerInstance);
-        player = player && player.props && player.props.mediaPlayerInstance ? player.props.mediaPlayerInstance : null;
-        var playerState = findReactNode(reactRootNode, node => node.setSrc && node.setInitialPlaybackSettings);
-        if (!player) {
-            console.log('Could not find player');
-            return;
-        }
-        if (!playerState) {
-            console.log('Could not find player state');
-            return;
-        }
-        if (player.paused) {
-            return;
-        }
-        if (isSeek) {
-            console.log('Force seek to reset player (hopefully fixing any audio desync) pos:' + player.getPosition() + ' range:' + JSON.stringify(player.getBuffered()));
-            var pos = player.getPosition();
-            player.seekTo(0);
-            player.seekTo(pos);
-            return;
-        }
-        if (isPausePlay) {
-            player.pause();
-            player.play();
-            return;
-        }
-        const lsKeyQuality = 'video-quality';
-        const lsKeyMuted = 'video-muted';
-        const lsKeyVolume = 'volume';
-        var currentQualityLS = localStorage.getItem(lsKeyQuality);
-        var currentMutedLS = localStorage.getItem(lsKeyMuted);
-        var currentVolumeLS = localStorage.getItem(lsKeyVolume);
-        if (player?.core?.state) {
-            localStorage.setItem(lsKeyMuted, JSON.stringify({default:player.core.state.muted}));
-            localStorage.setItem(lsKeyVolume, player.core.state.volume);
-        }
-        if (player?.core?.state?.quality?.group) {
-            localStorage.setItem(lsKeyQuality, JSON.stringify({default:player.core.state.quality.group}));
-        }
-        playerState.setSrc({ isNewMediaPlayerInstance: true, refreshAccessToken: true });
+    function pausePlayPlayer() {
+        document.querySelector('[data-a-target="player-play-pause-button"]').click();
         setTimeout(() => {
-            localStorage.setItem(lsKeyQuality, currentQualityLS);
-            localStorage.setItem(lsKeyMuted, currentMutedLS);
-            localStorage.setItem(lsKeyVolume, currentVolumeLS);
-        }, 3000);
+            document.querySelector('[data-a-target="player-play-pause-button"]').click();
+        }, 1000);
     }
 
     // Over time, the displayed buffer is larger than it actually is, causing lag in the stream.
     // Pausing and unpausing the stream works around the problem, done in the following code:
     setInterval(function() {
-        reloadTwitchPlayer(false, true);
-    }, 300000); // 300000ms is 5 minutes.
+        pausePlayPlayer();
+    }, 600000); // 600000ms is 10 minutes.
 })();
