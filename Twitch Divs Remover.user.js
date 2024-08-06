@@ -2,7 +2,7 @@
 // @name         Twitch Divs Remover
 // @author       themegaxandy
 // @description  Twitch Divs Remover
-// @version      1.0.2
+// @version      1.0.3
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Divs%20Remover.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Divs%20Remover.user.js
 // @match        *://www.twitch.tv/*
