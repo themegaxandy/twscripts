@@ -19,11 +19,11 @@
 
     let selectors = [
         /* Remove subs and bits leaderboard div */
-        "#live-page-chat > div > div > .chat-shell__expanded > div > div > section > div > div[class='Layout-sc-1xcs6mc-0']",
+        "section[class*='chat-room'] > div > div:nth-child(1)",
         /* Remove the "Shield Mode is On" div (moderators only) */
-        "#live-page-chat > div > div > .chat-shell__expanded > div > div > section > div > .chat-input > div:nth-child(2) > div.InjectLayout-sc-1i43xsx-0 > .tray-highlight > div > div[class='Layout-sc-1xcs6mc-0']",
-        /* Remove the "stream chat" header div */
-        "#live-page-chat > div > div > .chat-shell__expanded > div > div > div[class*='stream-chat-header']"
+        "div[class*='tray-highlight']",
+        /* Remove the stream chat header div */
+        "div[class*='stream-chat-header']"
     ];
 
     // Function to remove the specified divs
