@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.0.5
+// @version      1.0.6
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -78,10 +78,10 @@
 
                         // Click the settings button again
                         document.querySelector("button[data-a-target='player-settings-button']").click();
-                    }, 50); // Wait 50ms after the second click
-                }, 50); // Wait 50ms after the first click
-            }, 50); // Wait 50ms after the second click
-        }, 50); // Wait 50ms before the first click
+                    }, 500); // Wait 50ms after the second click
+                }, 500); // Wait 50ms after the first click
+            }, 500); // Wait 50ms after the second click
+        }, 500); // Wait 50ms before the first click
     }
 
     // Live Speed Control
@@ -121,16 +121,13 @@
             const seconds = (bufferElement.textContent.match(/(\d+\.\d+)\s*s/) ? parseFloat(bufferElement.textContent.match(/(\d+\.\d+)\s*s/)[1]) : 0);
             const videoElement = document.querySelector('video');
 
-            // Configuration variable to enable/disable the 1 second if block
-            let enableBlock1Second = false;
-
             let targetPlaybackRate;
             if (seconds >= 3) {
                 targetPlaybackRate = 2.0;
             } else if (seconds >= 1.5) {
-                targetPlaybackRate = enableBlock1Second ? 1.5 : 1.25;
-            } else if (enableBlock1Second && seconds >= 1.1) {
                 targetPlaybackRate = 1.25;
+            } else if (seconds <= 0) {
+                document.querySelector('.player-controls__right-control-group > p[aria-label="Tamanho do buffer"]').remove()
             } else {
                 targetPlaybackRate = 1.0;
             }
