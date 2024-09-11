@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.1
+// @version      1.1.1
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -116,29 +116,34 @@
     }
 
     function checkAndAdjustSpeed() {
-        const bufferElement = document.querySelector('.player-controls__right-control-group > p[aria-roledescription="video player stat"]');
-        if (bufferElement) {
-            const seconds = parseFloat(bufferElement.textContent);
-            const videoElement = document.querySelector('video');
+        const pBuffer = document.querySelector('.player-controls__right-control-group > p[aria-roledescription="video player stat"]');
+        const videoElement = document.querySelector('video');
+        let targetPlaybackRate;
 
-            let targetPlaybackRate;
+        if (pBuffer) {
+            const seconds = parseFloat(pBuffer.textContent);
+
             if (seconds >= 3) {
                 targetPlaybackRate = 2.0;
             } else if (seconds >= 1.5) {
                 targetPlaybackRate = 1.25;
             } else if (seconds < 0) {
-                document.querySelector('.player-controls__right-control-group > p[aria-roledescription="video player stat"]').remove()
+                pBuffer.remove()
+                targetPlaybackRate = 1.0;
             } else {
                 targetPlaybackRate = 1.0;
             }
-
-            if (videoElement.playbackRate !== targetPlaybackRate) {
-                videoElement.playbackRate = targetPlaybackRate;
-                console.log('[Twitch Live Speed] Speed adjusted to ' + targetPlaybackRate);
-            }
-
-            return targetPlaybackRate;
+        } else {
+            targetPlaybackRate = 1.0;
         }
+
+        if (videoElement.playbackRate !== targetPlaybackRate) {
+            videoElement.playbackRate = targetPlaybackRate;
+            console.log('[Twitch Live Speed] Speed adjusted to ' + targetPlaybackRate);
+        }
+
+        return targetPlaybackRate;
+
     }
 
     // Start the first interval
