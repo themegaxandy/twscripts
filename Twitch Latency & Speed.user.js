@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.0.7
+// @version      1.1
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -19,11 +19,11 @@
         // console.log('[Latency Overlay] Checking overlay...')
 
         // Check if the <p> element is still in the right control group
-        let pBuffer = document.querySelector(".video-ref .player-controls__right-control-group > p[aria-label='Tamanho do buffer']");
+        let pBuffer = document.querySelector('.player-controls__right-control-group > p[aria-roledescription="video player stat"]');
         let isChannelLive = document.querySelector(".top-bar--pointer-enabled > div > div.tw-channel-status-text-indicator");
 
         // If pBuffer is not present and the channel is live, call the moveFramerate function, otherwise delete pBuffer if it exists
-        !pBuffer && isChannelLive ? moveFramerate() : (pBuffer && !isChannelLive ? document.querySelector('.player-controls__right-control-group > p[aria-label="Tamanho do buffer"]').remove(): null);
+        !pBuffer && isChannelLive ? moveFramerate() : (pBuffer && !isChannelLive ? pBuffer.remove(): null);
     }
 
     // Run for the first time after 10 seconds after the page loads
@@ -87,7 +87,7 @@
     // Live Speed Control
     // Ratechange events are captured and stopped.
     // It is necessary to replace Twitch's stream speed control with this script.
-    // This does cause a problem with changing video speeds when watching vods, though. A bug to be resolved. 
+    // This does cause a problem with changing video speeds when watching vods, though. A bug to be resolved.
     // Refreshing the vod page works around the problem because of the specified @exclude userscript header.
     document.dispatchEvent(new Event('ratechange'));
     document.addEventListener('ratechange', function (e) {
@@ -126,8 +126,8 @@
                 targetPlaybackRate = 2.0;
             } else if (seconds >= 1.5) {
                 targetPlaybackRate = 1.25;
-            } else if (seconds <= 0) {
-                document.querySelector('.player-controls__right-control-group > p[aria-label="Tamanho do buffer"]').remove()
+            } else if (seconds < 0) {
+                document.querySelector('.player-controls__right-control-group > p[aria-roledescription="video player stat"]').remove()
             } else {
                 targetPlaybackRate = 1.0;
             }
