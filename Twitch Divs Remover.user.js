@@ -2,7 +2,7 @@
 // @name         Twitch Divs Remover
 // @author       themegaxandy
 // @description  Twitch Divs Remover
-// @version      1.0.4
+// @version      1.0.5
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Divs%20Remover.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Divs%20Remover.user.js
 // @match        *://www.twitch.tv/*
@@ -19,7 +19,7 @@
 
     let selectors = [
         /* Remove subs and bits leaderboard div */
-        "section[class*='chat-room'] > div > div:has(.channel-leaderboard-header-rotating__users)",
+        "section[class*='chat-room'] > div > div:has(.marquee-animation)",
         /* Remove the "Shield Mode is On" div (moderators only) */
         "div[class*='tray-highlight']",
         /* Remove the stream chat header div */
