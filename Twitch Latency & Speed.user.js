@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.1.1
+// @version      1.1.2
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -120,6 +120,8 @@
         const videoElement = document.querySelector('video');
         let targetPlaybackRate;
 
+        if (videoElement.readyState <= 4) {return 1};
+
         if (pBuffer) {
             const seconds = parseFloat(pBuffer.textContent);
 
@@ -149,16 +151,4 @@
     // Start the first interval
     startInterval();
 
-    function pausePlayPlayer() {
-        document.querySelector('[data-a-target="player-play-pause-button"]').click();
-        setTimeout(() => {
-            document.querySelector('[data-a-target="player-play-pause-button"]').click();
-        }, 1000);
-    }
-
-    // Over time, the displayed buffer is larger than it actually is, causing lag in the stream.
-    // Pausing and unpausing the stream works around the problem, done in the following code:
-    setInterval(function() {
-        pausePlayPlayer();
-    }, 600000); // 600000ms is 10 minutes.
 })();
