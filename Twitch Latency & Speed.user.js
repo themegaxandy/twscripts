@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.1.2
+// @version      1.1.3
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -120,7 +120,7 @@
         const videoElement = document.querySelector('video');
         let targetPlaybackRate;
 
-        if (videoElement.readyState <= 4) {return 1};
+        if (videoElement.readyState < 4) {return 1};
 
         if (pBuffer) {
             const seconds = parseFloat(pBuffer.textContent);
