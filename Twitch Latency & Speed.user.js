@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.1.3
+// @version      1.1.4
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -74,7 +74,7 @@
                         }
 
                         // Move the element to the right control group
-                        document.querySelector(".player-controls__right-control-group").prepend(document.querySelector("div[data-a-target='player-overlay-video-stats'] > table > tbody > tr:nth-child(5) > td:nth-child(2) > p"));
+                        document.querySelector(".player-controls__right-control-group").prepend(document.querySelector("div[data-a-target='player-overlay-video-stats'] > table > tbody > tr:nth-child(8) > td:nth-child(2) > p"));
 
                         // Click the settings button again
                         document.querySelector("button[data-a-target='player-settings-button']").click();
