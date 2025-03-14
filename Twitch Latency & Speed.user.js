@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.1.4
+// @version      1.1.5
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -19,7 +19,7 @@
         // console.log('[Latency Overlay] Checking overlay...')
 
         // Check if the <p> element is still in the right control group
-        let pBuffer = document.querySelector('.player-controls__right-control-group > p[aria-roledescription="video player stat"]');
+        let pBuffer = document.querySelector('.video-ref .player-controls__right-control-group > p[aria-roledescription="video player stat"]');
         let isChannelLive = document.querySelector(".top-bar--pointer-enabled > div > div.tw-channel-status-text-indicator");
 
         // If pBuffer is not present and the channel is live, call the moveFramerate function, otherwise delete pBuffer if it exists
@@ -35,7 +35,7 @@
     // Sets a function that moves the frame rate to the right control group
     function moveFramerate() {
         // Click on the settings button
-        document.querySelector("button[data-a-target='player-settings-button']").click();
+        document.querySelector(".video-ref button[data-a-target='player-settings-button']").click();
 
         // Wait 1 second before continuing
         setTimeout(function() {
@@ -50,11 +50,11 @@
                 // Wait 1 second before continuing
                 setTimeout(function() {
                     // Check if 'player-overlay-video-stats' element is present after first click
-                    var overlayStats = document.querySelector("div[data-a-target='player-overlay-video-stats']");
+                    var overlayStats = document.querySelector(".video-ref div[data-a-target='player-overlay-video-stats']");
 
                     if (!overlayStats) {
                         // Remove elements from the right control group
-                        var elements = document.querySelectorAll(".player-controls__right-control-group > p");
+                        var elements = document.querySelectorAll(".video-ref .player-controls__right-control-group > p");
 
                         elements.forEach(function(element) {
                             element.parentNode.removeChild(element);
@@ -67,17 +67,17 @@
                     // Wait 1 second before continuing
                     setTimeout(function() {
                         // Hide the 'player-overlay-video-stats' element if present
-                        var overlayStats = document.querySelector("div[data-a-target='player-overlay-video-stats']");
+                        var overlayStats = document.querySelector(".video-ref div[data-a-target='player-overlay-video-stats']");
 
                         if (overlayStats) {
                             overlayStats.style.display = "none";
                         }
 
                         // Move the element to the right control group
-                        document.querySelector(".player-controls__right-control-group").prepend(document.querySelector("div[data-a-target='player-overlay-video-stats'] > table > tbody > tr:nth-child(8) > td:nth-child(2) > p"));
+                        document.querySelector(".video-ref .player-controls__right-control-group").prepend(document.querySelector(".video-ref div[data-a-target='player-overlay-video-stats'] > table > tbody > tr:nth-child(8) > td:nth-child(2) > p"));
 
                         // Click the settings button again
-                        document.querySelector("button[data-a-target='player-settings-button']").click();
+                        document.querySelector(".video-ref button[data-a-target='player-settings-button']").click();
                     }, 500); // Wait 50ms after the second click
                 }, 500); // Wait 50ms after the first click
             }, 500); // Wait 50ms after the second click
