@@ -2,12 +2,14 @@
 // @name         Twitch Chat Sound
 // @author       themegaxandy
 // @description  Make a sound when there is a new chat message
-// @version      1.0.3
+// @version      1.0.4
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Chat%20Sound.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Chat%20Sound.user.js
 // @match        *://www.twitch.tv/*
+// @exclude      *://www.twitch.tv/popout/*/reward-queue
 // @grant        none
 // @run-at       document-end
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=twitch.tv
 // ==/UserScript==
 
 (function () {
