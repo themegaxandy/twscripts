@@ -2,13 +2,15 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.1.7
+// @version      1.1.8
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
 // @exclude      *://www.twitch.tv/videos/*
+// @exclude      *://www.twitch.tv/popout/*/reward-queue
 // @grant        none
 // @run-at       document-end
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=twitch.tv
 // ==/UserScript==
 
 (function() {
