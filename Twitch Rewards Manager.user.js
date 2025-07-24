@@ -1,9 +1,10 @@
 // ==UserScript==
-// @name         Twitch Reward Manager
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Overlay to manage Twitch reward rejection by username and/or badges, triggered by a button, with smooth dragging and "minimize" functionality.
+// @name         Twitch Rewards Manager
 // @author       themegaxandy
+// @description  Overlay to manage Twitch reward rejection by username and/or badges, triggered by a button, with smooth dragging and "minimize" functionality.
+// @version      1.1
+// @updateURL    https://github.com/themegaxandy/twscripts/blob/main/Twitch%20Rewards%20Manager.user.js
+// @downloadURL  https://github.com/themegaxandy/twscripts/blob/main/Twitch%20Rewards%20Manager.user.js
 // @match        https://www.twitch.tv/popout/*/reward-queue*
 // @grant        GM_setValue
 // @grant        GM_getValue
