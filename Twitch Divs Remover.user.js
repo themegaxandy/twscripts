@@ -2,12 +2,14 @@
 // @name         Twitch Divs Remover
 // @author       themegaxandy
 // @description  Twitch Divs Remover
-// @version      1.0.6
+// @version      1.0.7
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Divs%20Remover.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Divs%20Remover.user.js
 // @match        *://www.twitch.tv/*
+// @exclude      *://www.twitch.tv/popout/*/reward-queue
 // @grant        none
 // @run-at       document-end
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=twitch.tv
 // ==/UserScript==
 
 (function () {
