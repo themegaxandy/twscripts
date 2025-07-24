@@ -7,7 +7,7 @@ Remove some annoying divs that take up space in the chat field, to get more spac
 # Twitch Latency & Speed
 Adds an overlay to the player with the buffer size. It also increases the speed of the player to reach the stream.
 
-# Twitch Reward Manager
+# Twitch Rewards Manager
 A mini-app to reject user-defined reward requests, either by username or badge. The remaining requests can be accepted to do the opposite.
 
 ------
