@@ -2,7 +2,7 @@
 // @name         Twitch Latency & Speed
 // @author       themegaxandy
 // @description  Enhance your Twitch experience with live speed control and latency overlay
-// @version      1.1.8
+// @version      1.1.9
 // @updateURL    https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @downloadURL  https://github.com/themegaxandy/twscripts/raw/main/Twitch%20Latency%20&%20Speed.user.js
 // @match        *://www.twitch.tv/*
@@ -22,7 +22,7 @@
 
         // Check if the <p> element is still in the right control group
         let pBuffer = document.querySelector('.video-ref .player-controls__right-control-group > p[aria-roledescription="video player stat"]');
-        let isChannelLive = document.querySelector(".top-bar--pointer-enabled > div > div.tw-channel-status-text-indicator");
+        let isChannelLive = document.querySelector(".top-bar--pointer-enabled > div > div.tw-channel-status-text-indicator, .video-ref .tw-channel-status-text-indicator");
 
         // If pBuffer is not present and the channel is live, call the moveFramerate function, otherwise delete pBuffer if it exists
         !pBuffer && isChannelLive ? moveFramerate() : (pBuffer && !isChannelLive ? pBuffer.remove(): null);
